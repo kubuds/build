@@ -97,9 +97,11 @@ def gen_sensor_tuning_param_list():
         return kconfig_param_config_default_tmpl
 
     chip_list = os.listdir(isp_tuning_path)
-
+    valid_archs = [a.lower() for a in build_helper.get_chip_list().keys()]  # 从chip_list.json获取有效架构
     for arch in chip_list:
-        if os.path.isdir(os.path.join(isp_tuning_path, arch)) and arch != ".git":
+        if (os.path.isdir(os.path.join(isp_tuning_path, arch)) and 
+            not arch.startswith(".") and  # 过滤隐藏目录
+            arch.lower() in valid_archs):  # 只处理json中定义的架构
             temp_path = os.path.join(isp_tuning_path, arch)
             customers_list = os.listdir(temp_path)
             for customers in customers_list:
