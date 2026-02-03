@@ -342,6 +342,7 @@ function build_middleware()
   make all -j$(nproc)
   test $? -ne 0 && print_notice "build middleware failed !!" && popd && return 1
   make install DESTDIR="$SYSTEM_OUT_DIR" || return "$?"
+  find sample_app -perm 0755 -type f -exec cp '{}' "$SYSTEM_OUT_DIR"/bin ';'
   popd
 
   # add sdk version
