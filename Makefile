@@ -686,9 +686,9 @@ endif
 	${Q}find $(ROOTFS_DIR) -executable -type f ! -name "*.sh" ! -path "*etc*" ! -path "*.ko" -printf 'striping %p\n' -exec $(CROSS_COMPILE_SDK)strip --strip-all {} 2>/dev/null \;
 
 ifeq (${CONFIG_ROOTFS_RW},y)
-	$(call pack_image,rootfs,$(ROOTFS_DIR),71M)
+	$(call pack_image,rootfs,$(ROOTFS_DIR),256M)
 ifeq ($(CONFIG_ROOTFS_B),y)
-	$(call pack_image,rootfs_b,$(ROOTFS_DIR),71M)
+	$(call pack_image,rootfs_b,$(ROOTFS_DIR),256M)
 endif
 else
 
